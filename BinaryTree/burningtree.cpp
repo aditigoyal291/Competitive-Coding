@@ -15,14 +15,16 @@ class Node{
         this->right=NULL;
     }
 };
-
+//create mapping
+//return target node
+//level order traversal 
 Node* createParentMapping(Node* root,int target,map<Node*,Node*> &nodeToParent){
     Node* result=NULL;
     queue<Node*> q;
     q.push(root);
     nodeToParent[root]=NULL;
     while(!q.empty()){
-        Node* front=q.front();
+       Node* front=q.front();
         q.pop();
         if(front->data==target)
         {

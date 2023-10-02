@@ -1,16 +1,16 @@
 .vscode
 # array
-binarysearch
-BinaryTree
+# binarysearch
+# BinaryTree
 BinarySearchTree
-lists
-miscellaneous problems
-OOPS
-patterns
-pointers
-queue
-recursion
-sorting
-stacks
-strings
+# lists
+# miscellaneous problems
+# OOPS
+# patterns
+# pointers
+# queue
+# recursion
+# sorting
+# stacks
+# strings
 leetcode.cpp
