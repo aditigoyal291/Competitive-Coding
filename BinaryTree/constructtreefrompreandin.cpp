@@ -1,64 +1,62 @@
-#include<iostream>
-#include<map>
+#include <iostream>
+#include <map>
 using namespace std;
-class Node{
-    public:
+class Node
+{
+public:
     int data;
-    Node* right;
-    Node* left;
-
+    Node *left;
+    Node *right;
     Node(int data)
     {
-        this->data=data;
-        this->left=NULL;
-        this->right=NULL;
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
-
-// int findPosition(int in[],int element,int size)
+void createMapping(int in[], int pre[], map<int, int> &nodeToIndex, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        nodeToIndex[in[i]] = i;
+    }
+}
+// int findPosition(int in[], int element, int n)
 // {
-//     for(int i=0;i<size;i++)
+//     for (int i = 0; i < n; i++)
 //     {
-//         if(in[i]==element) return i;
-
+//         if (in[i] == element)
+//             return i;
 //     }
 //     return -1;
 // }
 
-void createMapping(int in[],map<int,int> &nodeToIndex,int n)
+Node *solve(int in[], int pre[], int index, int inorderStart, int inorderEnd, int n, map<int, int> &nodeToIndex)
 {
-    for(int i=0;i<n;i++)
-    {
-        nodeToIndex[in[i]]=i;
-    }
-}
-
-Node* solve(int in[],int pre[],int &index,int inOrderStart,int inOrderEnd,int n,map<int,int> &nodeToIndex)
-{
-    //base case
-    if(index>=n || inOrderStart>inOrderEnd)
+    // base case
+    if (index >= n || inorderStart > inorderEnd)
     {
         return NULL;
     }
-    int ele=pre[index++];
-    Node* root=new Node(ele);
-    int pos=nodeToIndex[ele];
-    // int pos=findPosition(in,ele,n);
-    root->left=solve(in,pre,index,inOrderStart,pos-1,n,nodeToIndex);
-    root->right=solve(in,pre,index,pos+1,inOrderEnd,n,nodeToIndex);
+    int element = pre[index++];
+    Node *root = new Node(element);
+    int position = nodeToIndex[element];
+    // int position = findPosition(in, element, n);
+    root->left = solve(in, pre, index, inorderStart, position - 1, n, nodeToIndex);
+    root->right = solve(in, pre, index, position + 1, inorderEnd, n, nodeToIndex);
     return root;
 }
-Node* buildTree(int in[],int pre[],int n)
+
+Node *buildTree(int in[], int pre[], int n)
 {
-    int preOrderIndex=0;
-    map<int,int> nodeToIndex;
-    createMapping(in,nodeToIndex,n);
-    Node* ans=solve(in,pre,preOrderIndex,0,n-1,n);//0 is the starting index of preorder and it will go till n-1 where n is the position of root node
+    int preOrderIndex = 0;
+    map<int, int> nodeToIndex;
+    createMapping(in, pre, nodeToIndex, n);
+    Node *ans = solve(in, pre, preOrderIndex, 0, n - 1, n, nodeToIndex);
     return ans;
 }
 int main()
 {
-    
 
     return 0;
 }

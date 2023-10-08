@@ -1,35 +1,51 @@
-#include<iostream>
+#include <iostream>
+#include <vector>
 using namespace std;
-//tc:o(N)
-class Node{
-    public:
+
+class Node
+{
+public:
     int data;
-    Node* left;
-    Node* right;
+    Node *left;
+    Node *right;
     Node(int data)
     {
-        this->left=NULL;
-        this->right=NULL;
-        this->data=data;
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
 
-bool isIdentical(Node* r1,Node* r2)
+void solve(Node *root, int k, int &count, vector<int> path)
 {
-    if(r1== NULL && r2== NULL ) return true;
-    if(r1==NULL && r2!=NULL) return false;
-    if(r1!=NULL && r2==NULL) return true;
-    bool left=isIdentical(r1->left ,r2->left);
-    bool right=isIdentical(r1->right,r2->right);
-    bool value=r1->data==r2->data;
-    if(left && right && value) return true;
-    else return false;
+    // base case
+    if (root == NULL)
+        return;
+    path.push_back(root->data);
+    // left
+    solve(root->left, k, count, path);
+    solve(root->right, k, count, path);
+    // check for k sum
+    int size = path.size();
+    int sum = 0;
+    for (int i = size - 1; i >= 0; i--)
+    {
+        sum = sum + path[i];
+        if (sum == k)
+            count++;
+    }
+    path.pop_back();
+}
 
-
-
+int sumK(Node *root, int k)
+{
+    vector<int> path;
+    int count = 0;
+    solve(root, k, count, path);
+    return count;
 }
 int main()
 {
-    
+
     return 0;
 }

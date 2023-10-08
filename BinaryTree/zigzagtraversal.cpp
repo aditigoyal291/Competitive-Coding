@@ -1,61 +1,56 @@
-#include<iostream>
-#include<vector>
-#include<queue>
-
-//tc:0(n)
-//sc:o(n)
+#include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
-
-class Node{
-    public:
+class Node
+{
+public:
     int data;
-    Node* left;
-    Node* right;
+    Node *left;
+    Node *right;
     Node(int data)
     {
-        this->data=data;
-        this->left=NULL;
-        this->right=NULL;
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
-
-vector<int> zigzag(Node* root)
+vector<int> zigzagTraversal(Node *root)
 {
-    vector<int> res;
-    if(root==NULL) return res;
-    bool leftToRight;
-    queue<Node*> q;
+    vector<int> result;
+    if (root == NULL)
+        return result;
+    queue<Node *> q;
     q.push(root);
-    while(!q.empty())
+    bool leftToRight = true;
+    while (!q.empty())
     {
-        int size=q.size();
+        int size = q.size();
         vector<int> ans(size);
-        for(int i=0;i<size;i++)
+        // level process
+        for (int i = 0; i < size; i++)
         {
-            Node* frontNode=q.front();
+            Node *frontNode = q.front();
             q.pop();
-            int index=leftToRight?1:size-i-1;
-            ans[index]=frontNode->data;
-
-            if(frontNode->left)
-            {
+            int index = leftToRight ? i : size - i - 1;
+            ans[index] = frontNode->data;
+            if (frontNode->left)
                 q.push(frontNode->left);
-            }
-
-            if(frontNode->right)
-            {
+            if (frontNode->right)
                 q.push(frontNode->right);
-            }
-            //change dir
-            leftToRight=!leftToRight;
-
-            for(auto i:ans) res.push_back(i);
         }
-        return res;
+        // direction change
+        leftToRight = !leftToRight;
+        for (auto i : ans)
+        {
+            result.push_back(i);
+        }
     }
+    return result;
 }
+
 int main()
 {
-    
+
     return 0;
 }

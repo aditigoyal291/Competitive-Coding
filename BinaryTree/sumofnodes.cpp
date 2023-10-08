@@ -1,55 +1,54 @@
-#include<iostream>
+// tc:o(n)
+// sc:o(height)
 
-//tc:o(n)
-//sc:o(n)
+#include <iostream>
 using namespace std;
-class Node{
-    public:
+class Node
+{
+public:
     int data;
-    Node* left;
-    Node* right;
+    Node *left;
+    Node *right;
     Node(int data)
     {
-        this->data=data;
-        this->left=NULL;
-        this->right=NULL; 
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
 
-void solve(Node* root,int sum,int &maxSum,int len,int &maxLen)
+void solve(Node *root, int sum, int &maxSum, int len, int &maxLen)
 {
-    //base case
-    if(root==NULL)
+    // base case
+    if (root == NULL)
     {
-        if(len>maxLen)
+        if (len > maxLen)
         {
-            maxLen=len;
-            maxSum=sum;
+            maxLen = len;
+            maxSum = sum;
         }
-        else if(len==maxLen)
+        else if (len == maxLen)
         {
-            maxSum=max(sum,maxSum);
+            maxSum = max(sum, maxSum);
         }
         return;
     }
-
-    sum=sum+root->data;
-    solve(root->left,sum,maxSum,len,maxLen);
-    solve(root->right,sum,maxSum,len,maxLen);
- 
-
+    sum = sum + root->data;
+    solve(root->left, sum, maxSum, len + 1, maxLen);
+    solve(root->right, sum, maxSum, len - 1, maxLen);
 }
-int sumTree(Node* root)
+
+int sumofroottoleaf(Node *root)
 {
-    int len=0;
-    int maxLen=0;
-    int sum=0;
-    int maxSum=INT_MIN;
-    solve(root,sum,maxSum,len,maxLen);
+    int len = 0;
+    int maxLen = 0;
+    int sum = 0;
+    int maxSum = INT_MIN;
+    solve(root, sum, maxSum, len, maxLen);
     return maxSum;
 }
 int main()
 {
-    
+
     return 0;
 }
