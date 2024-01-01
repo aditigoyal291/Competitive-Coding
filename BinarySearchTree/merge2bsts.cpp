@@ -4,9 +4,11 @@ using namespace std;
 
 class Node
 {
+public:
     int data;
-    Node *left;
     Node *right;
+    Node *left;
+
     Node(int data)
     {
         this->data = data;
@@ -14,7 +16,6 @@ class Node
         this->right = NULL;
     }
 };
-
 void inorder(Node *root, vector<int> &in)
 {
     if (root == NULL)
@@ -22,6 +23,17 @@ void inorder(Node *root, vector<int> &in)
     inorder(root->left, in);
     in.push_back(root->data);
     inorder(root->right, in );
+}
+
+Node* inordertobst(int s,int e,vector<int> &in)
+{
+    if(s>e) return NULL;
+    int mid=(s+e)/2;
+    Node* root=new Node(in[mid]);
+    root->left=inordertobst(s,mid-1,in);
+    root->right=inordertobst(mid+1,e,in);
+    return root;
+
 }
 
 vector<int> mergeArrays(vector<int> a, vector<int> b)
